@@ -9,7 +9,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const userAPIRouter = require("./routes/api_Trieu/user");
 
-
 // Kết nối với cơ sở dữ liệu MongoDB
 mongoose
   .connect(
