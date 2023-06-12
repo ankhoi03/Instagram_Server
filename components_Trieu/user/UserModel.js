@@ -8,7 +8,7 @@ const schema = new Schema({
   name: String,
   website: String,
   bio: String,
-  email: String,
+  email: { type: String, required: true },
   phone: String,
   gender: String,
   postSaved: [{

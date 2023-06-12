@@ -7,7 +7,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-const userAPIRouter = require("./routes/api_Trieu/user");
+const userAPIRouter = require("./routes/api_Trieu/UserAPI");
 
 // Kết nối với cơ sở dữ liệu MongoDB
 mongoose
