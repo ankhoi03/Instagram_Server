@@ -7,13 +7,13 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-const userAPIRouter = require("./routes/api/user");
-const productAPIRouter = require("./routes/api/product");
+const userAPIRouter = require("./routes/api_Trieu/user");
+
 
 // Kết nối với cơ sở dữ liệu MongoDB
 mongoose
   .connect(
-    "mongodb://127.0.0.1:27017/ABC?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",
+    "mongodb+srv://khoikz:anhnhoem03@cluster0.gm6uuv7.mongodb.net/Instagram?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -35,7 +35,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/user", userAPIRouter);
-app.use("/api/product", productAPIRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

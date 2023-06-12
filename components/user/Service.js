@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const User = require('./Model');
 
 const registerUser = async (username, password, email) => {
@@ -7,11 +6,11 @@ const registerUser = async (username, password, email) => {
     throw new Error('Tên người dùng đã tồn tại');
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  
 
   const user = new User({
     username,
-    password: hashedPassword,
+    password,
     email
   });
 
