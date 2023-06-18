@@ -1,0 +1,170 @@
+<section id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header bg-theme">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="/" class="logo"><b>MANAGER INSTAGRAM</b></a>
+        <!--logo end-->
+        <div class="d-flex justify-content-center align-items-center">
+            <form method="get" action="/login">
+                <button type="submit" class="pull-right btn btn-theme ">
+                    <a href="/logout" class="text-danger logo ">Log out</a>
+                </button>
+            </form>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="/"><img src="/images/avt.jpg" class="img-circle" width="60"></a>
+                </p>
+                <h5 class="centered">Admin</h5>
+
+                <li class="mt">
+                    <a href="/">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Statistics</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/new">
+                        <i class="fa fa-tasks"></i>
+                        <span>Ban Report</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/list">
+                        <i class="fa fa-th text-warning"></i>
+                        <span class="text-warning">Ban Account</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/history">
+                        <i class="fa fa-th"></i>
+                        <span>History</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <table class="table table-striped table-advance table-hover bg-warning">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><i class="fa fa-bullhorn"></i> Tên người tố cáo</th>
+                                    <th class="hidden-phone text-center"><i class="fa fa-question-circle"></i> Lý do</th>
+                                    <th class="hidden-phone text-center"><i class="fa fa-th"></i> Tên người bị tố</th>
+                                    <th class="text-center"><i class=" fa fa-edit"></i> Bằng chứng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each statuss}}
+                                <tr>
+                                    <td class="text-center"><a href="" style="font-weight: 600;">{{this.name}}</a></td>
+                                    <td class="text-center">{{this.thereason1}}abxx</td>
+                                    <td class="text-center" style="font-weight: 700;">{{this.thereason}}ABCCC</td>
+
+                                    <td class="text-center">
+                                        <span class="label  label-mini">
+                                            <img src="{{this.image}}" alt="" width="100" height="100"
+                                                style="border-radius: 10%;" />
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{!-- <form action="/CPanel/status/{{this._id}}/edit" method="get">
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                        </form> --}}
+                                        <button class="btn btn-danger btn-xs"
+                                            onclick="confirmDelete('{{this._id}}');"><i
+                                                class="fa fa-trash-o "></i></button>
+                                    </td>
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+
+<script>
+
+    const fectAPI = async (url, option) => {
+        const fech = await fetch(url, option);
+        return fech.json();
+    }
+    const deletestatus = async (id) => {
+        const url = `/CPanel/status/${id}/delete`;
+        const options = {
+            method: "get",
+            headers: { 'Content-Type': 'application/json' }
+        };
+        try {
+            const result = await fectAPI(url, options);
+            console.log(result);
+            if (result) {
+                swal({
+                    title: "Thành công",
+                    text: "Xóa Thành Công !!!",
+                    icon: "success",
+                    buttons: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        window.location.reload();
+                    }
+                });
+            } else {
+                alert("Xóa Thất Bại!");
+            }
+
+        }
+        catch (e) {
+            console.log("Xóa Thất Bại: " + e);
+        }
+    }
+
+    const confirmDelete = (id) => {
+        swal({
+            title: "Bạn chắc chắn sẽ xóa chứ ?",
+            text: "Khi mà bạn xóa, thì không thể hoàn tác được !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    deletestatus(id);
+                }
+            });
+    }
+
+
+
+</script>

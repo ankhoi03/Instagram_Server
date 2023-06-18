@@ -1,0 +1,129 @@
+<section id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header bg-theme">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="/" class="logo"><b>MANAGER INSTAGRAM</b></a>
+        <!--logo end-->
+        <div class="d-flex justify-content-center align-items-center">
+            <form method="get" action="/login">
+                <button type="submit" class="pull-right btn btn-theme ">
+                    <a href="/logout" class="text-danger logo ">Log out</a>
+                </button>
+            </form>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="/"><img src="/images/avt.jpg" class="img-circle" width="60"></a>
+                </p>
+                <h5 class="centered">Admin</h5>
+
+                <li class="mt">
+                    <a href="/">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Statistics</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/new">
+                        <i class="fa fa-tasks"></i>
+                        <span>Ban Report</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/list">
+                        <i class="fa fa-th"></i>
+                        <span>Ban Account</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/CPanel/status/Product/history">
+                        <i class="fa fa-th"></i>
+                        <span>History</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- INPUT MESSAGES -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="">
+                        <form class="form-horizontal tasi-form" method="post" action="/CPanel/status/{{status._id}}/edit" enctype="multipart/form-data">
+                            <div class="form-group has-error">
+                                <label class="col-sm-1 control-label col-lg-2" for="inputSuccess">Tên người bị tố</label>
+                                <div class="col-lg-7 col-sm-10">
+                                    <input type="text" class="form-control" id="inputSuccess" name="name" value="{{status.name}}">
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-1 control-label col-lg-2" for="inputWarning">Lý do</label>
+                                <div class="col-lg-7 col-md-10">
+                                    <input type="text" class="form-control" id="inputWarning" name="thereason" value="{{status.thereason}}">
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-1 control-label col-lg-2" for="inputError">Tên người bị tố</label>
+                                <div class="col-lg-7 col-md-10">
+                                    <input type="text" class="form-control" id="inputError" name="name2" value="{{status.name2}}">
+                                </div>
+                            </div>
+                           
+                            <div class="form-group has-error">
+                                <label class="col-sm-1 control-label col-lg-2" for="file">Bằng chứng</label>
+                                <div class="col-lg-4">
+                                    <input onchange="displayImg()" type="file" class="form-control" id="file" name="post" value="{{status.post}}">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img id="img" src="{{status.post}}" width="200" height="200"/> 
+                                </div>
+                            </div>
+                            <div class="mt">
+                                <div class="col-lg-7"></div>
+                                <button type="submit" class="btn btn-theme02 col-lg-2">
+                                    <i class="fa fa-check"></i>Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div><!-- /form-panel -->
+                </div><!-- /col-lg-12 -->
+            </div><!-- /row -->
+        </section>
+    </section><!-- /MAIN CONTENT -->    
+</section>
+
+<script>
+    const displayImg = () => {
+        var file = document.getElementById('file').files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var post = document.getElementById("img");
+            post.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+</script>
