@@ -37,7 +37,7 @@ const loginUser = async (username, password) => {
       check= user.password == password;
      return check ? user : false; 
     }
-    re;
+    return false;
   } catch (error) {
     console.log(">>>>>>Login Error:", error);
   }
