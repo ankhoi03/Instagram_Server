@@ -24,8 +24,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 //add new post
 router.post('/add', async function (req, res, next) {
   try {
-    const { userid, username, content, image } = req.body;
-    result = await postController.addNewPost(userid, username, content, image);
+    const { useridparam, content, image } = req.body;
+    result = await postController.addNewPost(useridparam, content, image);
     return res.status(200).json({ result });
   } catch (error) {
     return res.status(400).json({ result: false });
@@ -115,6 +115,60 @@ router.post('/unlike', async function (req, res, next) {
     return res.status(400).json({ result: false });
   }
 })
+
+router.post('/comment', async function (req, res, next) {
+  try {
+    const { postid, userid, content } = req.body;
+    result = await postController.addCommentToPost(postid, userid, content);
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
+
+
+router.get('/comment/:postid', async function (req, res, next) {
+  try {
+    const { postid } = req.params;
+    result = await postController.getCommentsOfPost(postid);
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
+
+router.post('/save', async function (req, res, next) {
+  try {
+    const { postid, userid } = req.body;
+    result = await postController.savePost(postid, userid);
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
+
+router.post('/unsave', async function (req, res, next) {
+  try {
+    const { postid, userid } = req.body;
+    result = await postController.unsavePost(postid, userid);
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
+
+
+router.get('/savedpost/:userid', async function (req, res, next) {
+  try {
+    const { userid } = req.params;
+    result = await postController.getSavedPosts(userid);
+    return res.status(200).json({ result });
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
+
+
 
 
 

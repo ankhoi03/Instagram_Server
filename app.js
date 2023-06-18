@@ -8,6 +8,7 @@ const mongoose=require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postRouter = require('./routes/api_Khoi/PostAPI');
+const userRouter = require("./routes/api_Trieu/UserAPI");
 
 var app = express();
 
@@ -31,6 +32,7 @@ mongoose.connect('mongodb+srv://khoikz:anhnhoem03@cluster0.gm6uuv7.mongodb.net/I
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/post', postRouter);
+app.use("/api/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

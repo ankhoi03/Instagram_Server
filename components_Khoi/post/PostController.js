@@ -20,9 +20,9 @@ const getMyPost= async (userid)=>{
 }
 
 
-const addNewPost= async (userid,username,content,image)=>{
+const addNewPost= async (useridparam,content,image)=>{
     try {
-         return await postService.addNewPost(userid,username,content,image);   
+         return await postService.addNewPost(useridparam,content,image);   
     } catch (error) {
          throw error;
     }
@@ -58,4 +58,51 @@ const likePost= async (userid,postid)=>{
     
  }
 
-module.exports = { addNewPost,deletePost,getAllPost,getMyPost,likePost,unlikePost};
+ const addCommentToPost= async (postid, userid, content)=>{
+     try {
+          return await postService.addCommentToPost(postid, userid, content);   
+     } catch (error) {
+          throw error;
+     }
+    
+ }
+
+ const getCommentsOfPost= async (postid)=>{
+     try {
+          return await postService.getCommentsOfPost(postid);   
+     } catch (error) {
+          throw error;
+     }
+    
+ }
+
+ const savePost= async (postid, userid)=>{
+     try {
+          return await postService.savePost(postid, userid);   
+     } catch (error) {
+          throw error;
+     }
+    
+ }
+
+ const unsavePost= async (postid, userid)=>{
+     try {
+          return await postService.unsavePost(postid, userid);   
+     } catch (error) {
+          throw error;
+     }
+    
+ }
+
+ const getSavedPosts= async (userid)=>{
+     try {
+          return await postService.getSavedPosts(userid);   
+     } catch (error) {
+          throw error;
+     }
+    
+ }
+
+
+module.exports = { addNewPost,deletePost,getAllPost,getMyPost,likePost,unlikePost,addCommentToPost,getCommentsOfPost,
+     savePost,unsavePost, getSavedPosts};
