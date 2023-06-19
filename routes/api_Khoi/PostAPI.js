@@ -5,6 +5,7 @@ const postController = require('../../components_Khoi/post/PostController');
 const { initializeApp } = require('firebase/app');
 const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require('firebase/storage');
 const multer = require('multer');
+const {authenApp}= require('../../middle/Authen');
 
 const firebaseConfig = {
   apiKey: "AIzaSyCgvEd6dtFmk2_M5jZNa0gdL5CIC0dolms",
@@ -22,7 +23,7 @@ const storage = getStorage();
 
 const upload = multer({ storage: multer.memoryStorage() });
 //add new post
-router.post('/add', async function (req, res, next) {
+router.post('/add',[authenApp], async function (req, res, next) {
   try {
     const { useridparam, content, image } = req.body;
     result = await postController.addNewPost(useridparam, content, image);
@@ -32,7 +33,7 @@ router.post('/add', async function (req, res, next) {
   }
 })
 //delete post
-router.get('/delete/:postid', async function (req, res, next) {
+router.get('/delete/:postid',[authenApp], async function (req, res, next) {
   try {
     const { postid } = req.params;
     result = await postController.deletePost(postid);
@@ -44,7 +45,7 @@ router.get('/delete/:postid', async function (req, res, next) {
 
 
 //get all post
-router.get('/allpost', async function (req, res, next) {
+router.get('/allpost',[authenApp], async function (req, res, next) {
   try {
     const post = await postController.getAllPost();
     return res.status(200).json({ post })
@@ -54,7 +55,7 @@ router.get('/allpost', async function (req, res, next) {
 });
 
 //get my post
-router.get('/mypost/:userid', async function (req, res, next) {
+router.get('/mypost/:userid',[authenApp], async function (req, res, next) {
   try {
     const { userid } = req.params;
     const post = await postController.getMyPost(userid);
@@ -66,7 +67,7 @@ router.get('/mypost/:userid', async function (req, res, next) {
 
 
 //add image
-router.post('/image', [upload.single('image')], async (req, res, next) => {
+router.post('/image', [authenApp,upload.single('image')], async (req, res, next) => {
   try {
     let { file } = req;
     if (file) {
@@ -97,7 +98,7 @@ router.post('/image', [upload.single('image')], async (req, res, next) => {
 });
 
 //like post
-router.post('/like', async function (req, res, next) {
+router.post('/like',[authenApp], async function (req, res, next) {
   try {
     const { userid, postid } = req.body;
     result = await postController.likePost(userid, postid);
@@ -116,7 +117,7 @@ router.post('/unlike', async function (req, res, next) {
   }
 })
 
-router.post('/comment', async function (req, res, next) {
+router.post('/comment',[authenApp], async function (req, res, next) {
   try {
     const { postid, userid, content } = req.body;
     result = await postController.addCommentToPost(postid, userid, content);
@@ -127,7 +128,7 @@ router.post('/comment', async function (req, res, next) {
 })
 
 
-router.get('/comment/:postid', async function (req, res, next) {
+router.get('/comment/:postid',[authenApp], async function (req, res, next) {
   try {
     const { postid } = req.params;
     result = await postController.getCommentsOfPost(postid);
@@ -137,7 +138,7 @@ router.get('/comment/:postid', async function (req, res, next) {
   }
 })
 
-router.post('/save', async function (req, res, next) {
+router.post('/save',[authenApp], async function (req, res, next) {
   try {
     const { postid, userid } = req.body;
     result = await postController.savePost(postid, userid);
@@ -147,7 +148,7 @@ router.post('/save', async function (req, res, next) {
   }
 })
 
-router.post('/unsave', async function (req, res, next) {
+router.post('/unsave',[authenApp], async function (req, res, next) {
   try {
     const { postid, userid } = req.body;
     result = await postController.unsavePost(postid, userid);
@@ -158,7 +159,7 @@ router.post('/unsave', async function (req, res, next) {
 })
 
 
-router.get('/savedpost/:userid', async function (req, res, next) {
+router.get('/savedpost/:userid',[authenApp], async function (req, res, next) {
   try {
     const { userid } = req.params;
     result = await postController.getSavedPosts(userid);
@@ -168,7 +169,7 @@ router.get('/savedpost/:userid', async function (req, res, next) {
   }
 })
 
-router.post('/update', async function (req, res, next) {
+router.post('/update',[authenApp], async function (req, res, next) {
   try {
     const { _id,content, image } = req.body;
     postUpdate = await postController.updatePost(_id,content,image);

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../../components_Trieu/user/UserController");
+const jwt = require('jsonwebtoken');
+const {authenApp}= require('../../middle/Authen');
 
 
 //login user
@@ -9,7 +11,8 @@ router.post("/login", async function (req, res, next) {
     const { username, password } = req.body;
     const user = await userController.login(username, password);
     if(user){
-      return res.status(200).json({ result:true, user });
+      const token=jwt.sign({user}, 'secret', {expiresIn:'2h'});
+      return res.status(200).json({ result:true, user, token });
     }
     return res.status(200).json({ result:false, user:null });
   } catch (error) {
@@ -28,7 +31,7 @@ router.post("/register", async function (req, res, next) {
 });
 
 //get user
-router.get("/get/:id", async function (req, res, next) {
+router.get("/get/:id",[authenApp], async function (req, res, next) {
   try {
     const { id} = req.params;
     const user = await userController.getUserById(id);
@@ -38,7 +41,7 @@ router.get("/get/:id", async function (req, res, next) {
   }
 });
 //update user
-router.post("/update", async function (req, res, next) {
+router.post("/update",[authenApp], async function (req, res, next) {
     try {
       const { _id,username, name,image, email, bio, website, phone, gender } = req.body;
       const user = await userController.updateUser(_id,username, name,image, email, bio, website, phone, gender);
