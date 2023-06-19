@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../../components_Trieu/user/UserController");
 
-router.post("/update/:id", userController.updateUser);
 
 //login user
 router.post("/login", async function (req, res, next) {

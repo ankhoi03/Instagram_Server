@@ -168,6 +168,17 @@ router.get('/savedpost/:userid', async function (req, res, next) {
   }
 })
 
+router.post('/update', async function (req, res, next) {
+  try {
+    const { _id,content, image } = req.body;
+    postUpdate = await postController.updatePost(_id,content,image);
+    if(postUpdate){
+      return res.status(200).json({ result:true,postUpdate });
+    }
+  } catch (error) {
+    return res.status(400).json({ result: false });
+  }
+})
 
 
 

@@ -103,6 +103,19 @@ const likePost= async (userid,postid)=>{
     
  }
 
+ const   updatePost = async (_id,content,image) => {
+     try {
+       const postUpdate = await postService.updatePost(_id, {
+        content,
+        image
+       });
+       return postUpdate;
+     } catch (error) {
+       throw error;
+     }
+   };
+   
+
 
 module.exports = { addNewPost,deletePost,getAllPost,getMyPost,likePost,unlikePost,addCommentToPost,getCommentsOfPost,
-     savePost,unsavePost, getSavedPosts};
+     savePost,unsavePost, getSavedPosts,updatePost};

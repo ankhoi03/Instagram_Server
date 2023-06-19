@@ -61,6 +61,19 @@ const deletePost = async (postid) => {
   return false;
 }
 
+//Edit post
+const updatePost = async (_id, post) => {
+  try {
+    const postUpdate = await postModel.findByIdAndUpdate(_id, post, { new: true });
+    if (postUpdate){
+    return postUpdate;
+    }
+  } catch (error) {
+    console.log(">>>>>>Update user  Error:", error);
+  }
+  return [];
+};
+
 
 //Like post
 const likePost = async (userid, postid) => {
@@ -183,4 +196,4 @@ const getSavedPosts = async (userid) => {
 
 
 module.exports = { addNewPost, deletePost, getAllPost, getMyPost, likePost, unlikePost , addCommentToPost,getCommentsOfPost,
-  savePost,unsavePost, getSavedPosts };
+  savePost,unsavePost, getSavedPosts,updatePost };
